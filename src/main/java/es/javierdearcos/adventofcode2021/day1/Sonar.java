@@ -20,8 +20,16 @@ import java.util.List;
  * @author Javier de Arcos
  */
 public class Sonar {
-    
+
     public int sweep(List<Integer> measures) {
-        return 0;
+        int increase = 0;
+
+        for (int i = 1; i < measures.size(); i++) {
+            if (measures.get(i) > measures.get(i - 1)) {
+                increase++;
+            }
+        }
+
+        return increase;
     }
 }
