@@ -14,8 +14,11 @@
 
 package es.javierdearcos.adventofcode2021.day1;
 
-import java.util.Collections;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -23,6 +26,12 @@ import java.util.List;
 public class FileReader {
 
     public List<Integer> read(String filePath) {
-        return Collections.emptyList();
+        InputStream inputStream = getClass().getResourceAsStream(filePath);
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        return bufferedReader.lines()
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }
