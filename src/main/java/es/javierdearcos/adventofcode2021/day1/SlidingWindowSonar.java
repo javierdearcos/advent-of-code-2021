@@ -19,22 +19,21 @@ import java.util.List;
 /**
  * @author Javier de Arcos
  */
-public class Day1 {
+public class SlidingWindowSonar {
 
-    public static void main(String[] args) {
-        FileReader fileReader = new FileReader();
-        Sonar sonar = new Sonar();
+    private final int numberOfMeasuresPerWindow;
+    private final Sonar sonar;
 
-        List<Integer> measures = fileReader.read("/day1/sample.txt");
+    public SlidingWindowSonar(int numberOfMeasuresPerWindow, Sonar sonar) {
+        this.numberOfMeasuresPerWindow = numberOfMeasuresPerWindow;
+        this.sonar = sonar;
+    }
 
-        int solution = sonar.sweep(measures);
+    public int sweep(List<Integer> measures) {
+        List<Integer> sumOfSlidingWindows =
+                measures.stream()
+                        .collect(SlidingWindowCollector.of(numberOfMeasuresPerWindow));
 
-        System.out.println("Solution Part 1: " + solution);
-
-        SlidingWindowSonar slidingWindowSonar = new SlidingWindowSonar(3, sonar);
-
-        solution = slidingWindowSonar.sweep(measures);
-
-        System.out.println("Solution Part 2: " + solution);
+        return sonar.sweep(sumOfSlidingWindows);
     }
 }
