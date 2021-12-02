@@ -14,8 +14,14 @@
 
 package es.javierdearcos.adventofcode2021.day1;
 
+import java.util.List;
+
 /**
  * @author Javier de Arcos
  */
 public class Sonar {
+    
+    public int sweep(List<Integer> measures) {
+        return 0;
+    }
 }
