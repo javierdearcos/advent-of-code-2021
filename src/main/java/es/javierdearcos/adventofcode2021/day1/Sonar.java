@@ -15,6 +15,7 @@
 package es.javierdearcos.adventofcode2021.day1;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * @author Javier de Arcos
@@ -22,14 +23,29 @@ import java.util.List;
 public class Sonar {
 
     public int sweep(List<Integer> measures) {
-        int increase = 0;
 
-        for (int i = 1; i < measures.size(); i++) {
-            if (measures.get(i) > measures.get(i - 1)) {
-                increase++;
-            }
+        return (int) IntStream.range(1, measures.size())
+                .mapToObj(index -> new IntPair(measures.get(index - 1), measures.get(index)))
+                .filter(pair -> pair.getSecondElement() > pair.getFirstElement())
+                .count();
+    }
+
+    private static class IntPair {
+
+        private final int firstElement;
+        private final int secondElement;
+
+        public IntPair(int firstElement, int secondElement) {
+            this.firstElement = firstElement;
+            this.secondElement = secondElement;
         }
 
-        return increase;
+        public int getFirstElement() {
+            return firstElement;
+        }
+
+        public int getSecondElement() {
+            return secondElement;
+        }
     }
 }
