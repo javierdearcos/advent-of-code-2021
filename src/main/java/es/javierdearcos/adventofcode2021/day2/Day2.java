@@ -1,31 +1,16 @@
-/**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- * <p>
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- * <p>
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- */
-
 package es.javierdearcos.adventofcode2021.day2;
+
+import es.javierdearcos.adventofcode2021.util.FileReader;
 
 import java.util.List;
 
-/**
- * @author Javier de Arcos
- */
 public class Day2 {
 
     public static void main(String[] args) {
         FileReader fileReader = new FileReader();
         Submarine submarine = new Submarine();
 
-        List<SubmarineCommand> commands = fileReader.read("/day2/sample.txt");
+        List<SubmarineCommand> commands = fileReader.read("/day2/sample.txt", SubmarineCommand::parseCommand);
         submarine.execute(commands);
 
         System.out.println("Solution Part1: " + submarine.getHorizontalPosition() * submarine.getDepth());

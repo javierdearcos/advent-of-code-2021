@@ -9,7 +9,7 @@ public enum Direction {
     UP,
     DOWN;
 
-    private static Map<String, Direction> stringValues =
+    private static final Map<String, Direction> stringValues =
             Map.of("forward", FORWARD, "up", UP, "down", DOWN);
 
     public static Direction parse(String value) {
