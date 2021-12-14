@@ -33,6 +33,7 @@ public class Line {
     public static Line create(Point from, Point to) {
         List<Point> points = new ArrayList<>();
 
+        /* Vertical line */
         if (from.getX() == to.getX()) {
             int x = from.getX();
             int yMax = Math.max(from.getY(), to.getY());
@@ -41,6 +42,7 @@ public class Line {
                 points.add(new Point(x, y));
             }
         }
+        /* Horizontal line */
         else if (from.getY() == to.getY()){
             int y = from.getY();
             int xMax = Math.max(from.getX(), to.getX());
@@ -48,8 +50,28 @@ public class Line {
             for (int x = Math.min(from.getX(), to.getX()); x <= xMax; x++) {
                 points.add(new Point(x, y));
             }
-        } else {
-            throw new IllegalArgumentException("Only horizontal and vertical lines are supported");
+        }
+        /* 45 degrees Diagonal line */
+        else if (Math.abs(from.getX() - to.getX())/Math.abs(from.getY() - to.getY()) == 1) {
+            Point initialPoint;
+            Point endPoint;
+
+            if (from.getX() <= to.getX()) {
+                initialPoint = from;
+                endPoint = to;
+            } else {
+                initialPoint = to;
+                endPoint = from;
+            }
+
+            int yIncrement = initialPoint.getY() <= endPoint.getY() ? 1 : -1;
+
+            for (int x = initialPoint.getX(), y = initialPoint.getY(); x <= endPoint.getX(); x++, y += yIncrement) {
+                points.add(new Point(x, y));
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Only horizontal, vertical and 45 degrees diagonal lines are supported");
         }
 
         return new Line(points);

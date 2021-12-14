@@ -35,8 +35,21 @@ public class LineTest {
         assertEquals(10, line.length());
     }
 
+    @Test
+    public void create45degreesDiagonalLine() {
+        Line line = Line.create(new Point(1, 1), new Point(3,3));
+
+        assertNotNull(line);
+        assertEquals(3, line.length());
+
+        line = Line.create(new Point(9, 7), new Point(7,9));
+
+        assertNotNull(line);
+        assertEquals(3, line.length());
+    }
+
     @Test(expected = IllegalArgumentException.class)
-    public void createNonVerticalNonHorizontalLineShouldThrowException() {
+    public void createUnsupportedLineShouldThrowException() {
         Line.create(new Point(5, 1), new Point(10,10));
     }
 
