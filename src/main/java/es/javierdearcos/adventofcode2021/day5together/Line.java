@@ -12,7 +12,7 @@
  * details.
  */
 
-package es.javierdearcos.adventofcode2021.day51;
+package es.javierdearcos.adventofcode2021.day5together;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +33,17 @@ public class Line {
 
         if (from.getX() == to.getX()) {
             int x = from.getX();
+            int maxY = Math.max(from.getY(), to.getY());
 
-            for (int y = from.getY(); y <= to.getY(); y++) {
+            for (int y = Math.min(from.getY(), to.getY()); y <= maxY; y++) {
                 points.add(new Point(x, y));
             }
         }
         else if (from.getY() == to.getY()) {
             int y = from.getY();
+            int maxX = Math.max(from.getX(), to.getX());
 
-            for (int x = from.getX(); x <= to.getX(); x++) {
+            for (int x = Math.min(from.getX(), to.getX()); x <= maxX; x++) {
                 points.add(new Point(x, y));
             }
         }

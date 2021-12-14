@@ -14,6 +14,7 @@
 
 package es.javierdearcos.adventofcode2021.day5;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class LineParser {
 
-    private final Pattern pattern = Pattern.compile("^(\\d),(\\d) -> (\\d),(\\d)$");
+    private final Pattern pattern = Pattern.compile("^(\\d+),(\\d+) -> (\\d+),(\\d+)$");
 
     public Line parse(String line) {
         Matcher matcher = pattern.matcher(line);
@@ -32,6 +33,14 @@ public class LineParser {
         }
 
         return Line.create(createPoint(matcher.group(1), matcher.group(2)), createPoint(matcher.group(3), matcher.group(4)));
+    }
+
+    public Optional<Line> tryParse(String line) {
+        try {
+            return Optional.of(parse(line));
+        } catch (IllegalArgumentException illegalArgumentException) {
+            return Optional.empty();
+        }
     }
 
     private Point createPoint(String x, String y) {

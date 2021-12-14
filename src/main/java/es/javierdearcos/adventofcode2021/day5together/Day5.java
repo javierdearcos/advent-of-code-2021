@@ -12,7 +12,7 @@
  * details.
  */
 
-package es.javierdearcos.adventofcode2021.day51;
+package es.javierdearcos.adventofcode2021.day5together;
 
 import es.javierdearcos.adventofcode2021.util.FileReader;
 
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Javier de Arcos
@@ -35,7 +34,7 @@ public class Day5 {
 
         List<Line> lines =
                 optionalLines.stream()
-                        .filter(optional -> !optional.isEmpty())
+                        .filter(Optional::isPresent)
                         .map(Optional::get)
                         .collect(Collectors.toList());
 

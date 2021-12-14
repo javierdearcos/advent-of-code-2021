@@ -17,6 +17,8 @@ package es.javierdearcos.adventofcode2021.day5;
 import es.javierdearcos.adventofcode2021.util.FileReader;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -26,9 +28,16 @@ public class Day5 {
     public static void main(String[] args) {
         FileReader fileReader = new FileReader();
         LineParser lineParser = new LineParser();
+        DangerousAreasDetector dangerousAreasDetector = new DangerousAreasDetector();
 
-        List<Line> lines = fileReader.read("/day5/sample.txt", lineParser::parse);
+        List<Optional<Line>> optionalLines =
+                fileReader.read("/day5/sample.txt", lineParser::tryParse);
 
+        List<Line> lines = optionalLines.stream()
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
 
+        System.out.println("Solution: " + dangerousAreasDetector.countDangerousAreas(lines));
     }
 }

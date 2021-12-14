@@ -17,6 +17,7 @@ package es.javierdearcos.adventofcode2021.day5;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -32,33 +33,35 @@ public class Line {
     public static Line create(Point from, Point to) {
         List<Point> points = new ArrayList<>();
 
-        if (Objects.equals(from.getX(), to.getX())) {
+        if (from.getX() == to.getX()) {
             int x = from.getX();
-            for (int y = from.getY(); y <= to.getY(); y++) {
+            int yMax = Math.max(from.getY(), to.getY());
+
+            for (int y = Math.min(from.getY(), to.getY()); y <= yMax; y++) {
                 points.add(new Point(x, y));
             }
         }
-        else {
+        else if (from.getY() == to.getY()){
             int y = from.getY();
-            for (int x = from.getX(); x <= to.getX(); x++) {
+            int xMax = Math.max(from.getX(), to.getX());
+
+            for (int x = Math.min(from.getX(), to.getX()); x <= xMax; x++) {
                 points.add(new Point(x, y));
             }
+        } else {
+            throw new IllegalArgumentException("Only horizontal and vertical lines are supported");
         }
 
         return new Line(points);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Line)) return false;
-        Line line = (Line) o;
-        return Objects.equals(points.get(0), line.points.get(0)) &&
-                Objects.equals(points.get(points.size() - 1), line.points.get(line.points.size() - 1));
+    public int length() {
+        return points.size();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
+    public List<Point> getOverlappingPoints(Line line) {
+        return points.stream()
+                .filter(line.points::contains)
+                .collect(Collectors.toList());
     }
 }

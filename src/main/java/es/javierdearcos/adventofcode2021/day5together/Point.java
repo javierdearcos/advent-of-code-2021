@@ -12,7 +12,7 @@
  * details.
  */
 
-package es.javierdearcos.adventofcode2021.day51;
+package es.javierdearcos.adventofcode2021.day5together;
 
 import java.util.Objects;
 
